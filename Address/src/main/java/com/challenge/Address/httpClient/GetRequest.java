@@ -10,16 +10,25 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
 
 public class GetRequest {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        Scanner scanner = new Scanner(System.in);
+        String codigoCep, uri;
+
+        System.out.println("Digite um cep que vc deseja pesquisar: (apenas números)");
+
+        codigoCep = scanner.next();
+        uri = "http://localhost:8080/api/cep/v1/" + codigoCep;
+
         try{
 
             HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("http://localhost:8080/api/cep/v1/54440570"))
+                .uri(URI.create(uri))
                 .build();
 
             HttpClient httpClient = HttpClient.newHttpClient();

@@ -6,6 +6,7 @@ import com.challenge.Address.repositories.CepRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CepService {
@@ -16,7 +17,7 @@ public class CepService {
         this.cepRepository = cepRepository;
     }
 
-    public void create(CepDTO cepDTO){
+    public Cep create(CepDTO cepDTO){
 
         Cep cep = new Cep();
         cep.setCep(cepDTO.getCep());
@@ -26,19 +27,23 @@ public class CepService {
         cep.setNeighborhood(cepDTO.getNeighborhood());
         cep.setService(cepDTO.getService());
 
-        cepRepository.save(cep);
+        return cepRepository.save(cep);
     }
 
     public List<Cep> list(){
         return cepRepository.findAll();
     }
 
-    public CepDTO readCep(String cep) {
-        Cep find = cepRepository.findByCep(cep);
+    public Optional<CepDTO> readCep(String cep) {
+        Optional<Cep> find = cepRepository.findByCep(cep);
 
         //answer.setId(find.getId());
 
-        return new CepDTO(find.getCep(), find.getState(), find.getCity(),
-                find.getNeighborhood(), find.getStreet(), find.getService());
+        CepDTO cepDTO;
+
+        cepDTO = find.map(value -> new CepDTO(value.getCep(), value.getState(), value.getCity(),
+                value.getNeighborhood(), value.getStreet(), value.getService())).orElseGet(CepDTO::new);
+
+        return Optional.of(cepDTO);
     }
 }

@@ -5,22 +5,23 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
 
 public class PostRequest {
-    public static final String URL_POST = "http://localhost:8080/api/cep/v1";
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         HttpClient httpClient = HttpClient.newBuilder().build();
 
-        // Construindo a URI da API REST
+        String url;
 
-        URI uri = URI.create(URL_POST);
+        url = "http://localhost:8080/api/cep/v1";
+
+        URI uri = URI.create(url);
 
         // Criando o corpo da solicitação POST
-
-        String requestBody = "{\"cep\": \"54440570\", \"state\": \"PE\", \"city\": \"Jaboatão\", " +
-                "\"neighborhood\": \"Candeias\", \"street\": \"Avenida Ulisses Montarroyos\", \"service\": \"correios-alt\" }";
+        String requestBody = "{\"cep\": \"51030420\", \"state\": \"PE\", \"city\": \"Recife\", " +
+                "\"neighborhood\": \"Boa Viagem\", \"street\": \"Rua Capitão Zuzinha\", \"service\": \"correios-alt\" }";
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(uri)
@@ -42,25 +43,5 @@ public class PostRequest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*
-        // cliente HTTP
-        HttpClient client = HttpClient.newHttpClient();
-
-        // criar a requisição
-        HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofFile(Path.of(FILE_JSON)))
-                .timeout(Duration.ofSeconds(10))
-                .uri(URI.create(URL_POST))
-                .build();
-
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
-                .join();
-
-        System.out.println(request.bodyPublisher());
-
-         */
     }
 }

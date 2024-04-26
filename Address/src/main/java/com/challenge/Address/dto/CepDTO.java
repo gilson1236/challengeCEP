@@ -2,7 +2,6 @@ package com.challenge.Address.dto;
 
 public class CepDTO {
 
-    //private Long id;
     private String cep;
     private String state;
     private String city;
@@ -22,14 +21,6 @@ public class CepDTO {
 
     }
 
-/*    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-*/
     public String getCep() {
         return cep;
     }

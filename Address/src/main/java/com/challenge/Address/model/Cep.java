@@ -13,30 +13,17 @@ public class Cep {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Length(min = 3, max = 10)
-    //@Column(length = 10, nullable = false)
     private String cep;
 
-    //@Length(min = 3, max = 30)
-    //@Column(length = 30, nullable = false)
     private String state;
 
-    //@Length(min = 3, max = 100)
-    //@Column(length = 100, nullable = false)
     private String city;
 
-    //@Length(min = 3, max = 100)
-    //@Column(length = 100, nullable = false)
     private String neighborhood;
 
-    //@Length(min = 3, max = 100)
-    //@Column(length = 100, nullable = false)
     private String street;
 
-    //@Length(min = 3, max = 10)
-    //@Column(length = 100, nullable = false)
     private String service;
-
 
     public Cep(){}
 
