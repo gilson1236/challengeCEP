@@ -1,9 +1,7 @@
 package com.challenge.Address.httpClient;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.challenge.Address.exceptions.RecordNotFoundException;
+import com.google.gson.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -24,22 +22,27 @@ public class GetRequest {
         codigoCep = scanner.next();
         uri = "http://localhost:8080/api/cep/v1/" + codigoCep;
 
-        try{
+        try {
 
             HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create(uri))
-                .build();
+                    .GET()
+                    .uri(URI.create(uri))
+                    .build();
 
             HttpClient httpClient = HttpClient.newHttpClient();
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             String formattedJson = prettyPrintJsonUsing(response.body());
 
+            if (formattedJson != null) {
+                System.out.println(response.statusCode());
+            }
             System.out.println(response.statusCode());
             System.out.println(formattedJson);
 
-        }catch(Exception e){
+        } catch(JsonSyntaxException jsonSyntaxException){
+            throw new RecordNotFoundException("Registro não Encontrado!");
+        } catch(Exception e){
             e.printStackTrace();
         }
 

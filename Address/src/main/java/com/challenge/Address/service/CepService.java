@@ -37,8 +37,6 @@ public class CepService {
     public Optional<CepDTO> readCep(String cep) {
         Optional<Cep> find = cepRepository.findByCep(cep);
 
-        //answer.setId(find.getId());
-
         CepDTO cepDTO;
 
         cepDTO = find.map(value -> new CepDTO(value.getCep(), value.getState(), value.getCity(),

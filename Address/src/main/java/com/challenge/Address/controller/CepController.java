@@ -4,7 +4,6 @@ import com.challenge.Address.dto.CepDTO;
 import com.challenge.Address.model.Cep;
 import com.challenge.Address.service.CepService;
 import jakarta.transaction.Transactional;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +43,18 @@ public class CepController {
     }
 
     @GetMapping(value = "/{cep}", produces="application/json")
-    public Optional<CepDTO> readCep(@PathVariable String cep) {
-        return cepService.readCep(cep);
+    public ResponseEntity<Object> readCep(@PathVariable String cep) {
+        Optional<CepDTO> optionalCep = cepService.readCep(cep);
+
+        if (optionalCep.isEmpty() || optionalCep.get().getCep() == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro não encontrado");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new CepDTO(
+                optionalCep.get().getCep(), optionalCep.get().getState(),
+                optionalCep.get().getCity(), optionalCep.get().getNeighborhood(),
+                optionalCep.get().getStreet(), optionalCep.get().getService()
+        ));
+
     }
 }

@@ -7,9 +7,10 @@ Este projeto é a resolução do desafio de encontrar os dados referentes a um C
 * Spring Docker Compose
 * Docker Compose
 * Postman
+* Swagger, para a documentação
 * MySQL para persistência dos dados dentro do Docker
 * HttpClient nativo do Java
-* Java na versão 17, sendo que é compatível com o Java 11.
+* Java na versão 17, sendo que o projeto é compatível com o Java 11.
 * Spring Boot 3.x e Spring 6.x
-* Pode ser otimizado
+* Ainda pode ser otimizado
 
