@@ -24,10 +24,7 @@ public class GetRequest {
 
         try {
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .GET()
-                    .uri(URI.create(uri))
-                    .build();
+            HttpRequest request = getHttpRequest(uri);
 
             HttpClient httpClient = HttpClient.newHttpClient();
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -47,6 +44,13 @@ public class GetRequest {
         }
 
 }
+
+    private static HttpRequest getHttpRequest(String uri){
+        return HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(uri))
+                .build();
+    }
 
     private static String prettyPrintJsonUsing(String jsonUgglyFormatted) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

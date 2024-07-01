@@ -41,15 +41,11 @@ public class PostRequest {
 
         // Transformando o objeto criado em formato json
         Gson gson = new Gson();
-        String json = gson.toJson(cepDTO);
+        //String json = gson.toJson(cepDTO);
 
 
         // Criando o corpo da solicitação POST
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(uri)
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
-                .build();
+        HttpRequest httpRequest = getHttpRequest(uri, gson, cepDTO);
 
         try {
             // Enviando a solicitação
@@ -62,9 +58,21 @@ public class PostRequest {
             // Exibindo a resposta final
             System.out.println("Status Code: " + statusCode);
             System.out.println("Response Body: " + responseBody);
-            System.out.println(json);
+            System.out.println(toJson(gson, cepDTO));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String toJson(Gson gson, CepDTO cep){
+        return gson.toJson(cep);
+    }
+
+    private static HttpRequest getHttpRequest(URI uri, Gson gson, CepDTO cep){
+        return HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(toJson(gson, cep)))
+                .build();
     }
 }
